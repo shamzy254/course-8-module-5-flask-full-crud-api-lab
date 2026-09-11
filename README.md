@@ -72,6 +72,8 @@ You’re building a basic event management API. It should:
 The Flask API should be structured as follows:
 
 - Use `@app.route()` with correct HTTP method decorators
+- Return a JSON welcome message from `GET /`
+- Return all events from `GET /events`
 - Accept input using `request.get_json()`
 - Represent data using a custom `Event` class
 - Store events in an in-memory list
@@ -123,11 +125,47 @@ python app.py
 
 Test your endpoints using Postman or curl:
 
+- `GET http://localhost:5000/`
+- `GET http://localhost:5000/events`
+
 - `POST http://localhost:5000/events`
   - Body: `{ "title": "Hackathon" }`
 - `PATCH http://localhost:5000/events/1`
   - Body: `{ "title": "Hackathon 2025" }`
 - `DELETE http://localhost:5000/events/2`
+
+Example `curl` requests:
+
+```bash
+curl -X POST http://localhost:5000/events \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Hackathon"}'
+```
+
+Response (`201 Created`):
+
+```json
+{"id":3,"title":"Hackathon"}
+```
+
+```bash
+curl -X PATCH http://localhost:5000/events/1 \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Hackathon 2025"}'
+```
+
+Response (`200 OK`):
+
+```json
+{"id":1,"title":"Hackathon 2025"}
+```
+
+```bash
+curl -i -X DELETE http://localhost:5000/events/2
+```
+
+The delete request returns `204 No Content`. Requests without a title return
+`400 Bad Request`, and requests for an unknown event return `404 Not Found`.
 
 ---
 
