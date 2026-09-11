@@ -129,6 +129,39 @@ Test your endpoints using Postman or curl:
   - Body: `{ "title": "Hackathon 2025" }`
 - `DELETE http://localhost:5000/events/2`
 
+Example `curl` requests:
+
+```bash
+curl -X POST http://localhost:5000/events \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Hackathon"}'
+```
+
+Response (`201 Created`):
+
+```json
+{"id":3,"title":"Hackathon"}
+```
+
+```bash
+curl -X PATCH http://localhost:5000/events/1 \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Hackathon 2025"}'
+```
+
+Response (`200 OK`):
+
+```json
+{"id":1,"title":"Hackathon 2025"}
+```
+
+```bash
+curl -i -X DELETE http://localhost:5000/events/2
+```
+
+The delete request returns `204 No Content`. Requests without a title return
+`400 Bad Request`, and requests for an unknown event return `404 Not Found`.
+
 ---
 
 ## Best Practices
