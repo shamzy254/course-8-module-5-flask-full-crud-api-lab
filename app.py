@@ -22,6 +22,16 @@ def find_event(event_id):
     return next((event for event in events if event.id == event_id), None)
 
 
+@app.route("/", methods=["GET"])
+def welcome():
+    return jsonify({"message": "Welcome to the Event Management API"})
+
+
+@app.route("/events", methods=["GET"])
+def list_events():
+    return jsonify([event.to_dict() for event in events])
+
+
 @app.route("/events", methods=["POST"])
 def create_event():
     data = request.get_json(silent=True)

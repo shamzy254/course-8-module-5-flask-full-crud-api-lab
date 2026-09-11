@@ -72,6 +72,8 @@ You’re building a basic event management API. It should:
 The Flask API should be structured as follows:
 
 - Use `@app.route()` with correct HTTP method decorators
+- Return a JSON welcome message from `GET /`
+- Return all events from `GET /events`
 - Accept input using `request.get_json()`
 - Represent data using a custom `Event` class
 - Store events in an in-memory list
@@ -122,6 +124,9 @@ python app.py
 ```
 
 Test your endpoints using Postman or curl:
+
+- `GET http://localhost:5000/`
+- `GET http://localhost:5000/events`
 
 - `POST http://localhost:5000/events`
   - Body: `{ "title": "Hackathon" }`
